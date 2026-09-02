@@ -96,15 +96,15 @@ A central distinction in the original research was the difference between **flux
 
 Flux or intensity describes a rate of particle passage. Fluence is the time-integrated particle exposure:
 
-\[
+$$
 \Phi = \int F(t)\,dt.
-\]
+$$
 
-If the environment is approximated as stationary over an interval \(T\),
+If the environment is approximated as stationary over an interval $T$,
 
-\[
+$$
 \Phi \approx FT.
-\]
+$$
 
 This relationship is what connects the Voyager observations to the mission-duration scenarios.
 
@@ -294,60 +294,60 @@ That agreement provides a useful independent quality check on:
 
 The Voyager observations provide an energy-differential directional particle intensity:
 
-\[
+$$
 j(E,t).
-\]
+$$
 
 Its units are:
 
-\[
+$$
 [j]
 =
 \frac{\text{particles}}
 {\text{m}^2\,\text{s}\,\text{sr}\,\text{MeV}}.
-\]
+$$
 
-For measured energy channel \(i\),
+For measured energy channel $i$,
 
-\[
+$$
 E_i^- \le E \le E_i^+,
-\]
+$$
 
 with bin width
 
-\[
+$$
 \Delta E_i = E_i^+ - E_i^-.
-\]
+$$
 
 The baseline intensity for that channel is the mean over valid daily measurements:
 
-\[
+$$
 \bar j_i
 =
 \frac{1}{N_i}
 \sum_{k=1}^{N_i}j_i(t_k).
-\]
+$$
 
 ## 2. Integrating each measured energy bin
 
-For the first empirical source model, \(j(E)\) is assumed piecewise constant inside each measured channel.
+For the first empirical source model, $j(E)$ is assumed piecewise constant inside each measured channel.
 
-Thus the directional intensity represented by bin \(i\) is approximated as:
+Thus the directional intensity represented by bin $i$ is approximated as:
 
-\[
+$$
 I_i
 \approx
 \bar j_i \Delta E_i.
-\]
+$$
 
 The energy coordinate has been integrated out, so:
 
-\[
+$$
 [I_i]
 =
 \frac{\text{particles}}
 {\text{m}^2\,\text{s}\,\text{sr}}.
-\]
+$$
 
 This approximation is transparent and data-driven: it uses what was actually measured and does not invent a spectral curve in the unmeasured gaps.
 
@@ -355,30 +355,30 @@ This approximation is transparent and data-driven: it uses what was actually mea
 
 To turn the measured spectrum into a source distribution, each bin is weighted by its energy-integrated intensity:
 
-\[
+$$
 W_i = \bar j_i\Delta E_i.
-\]
+$$
 
-The probability of sampling bin \(i\) is then:
+The probability of sampling bin $i$ is then:
 
-\[
+$$
 \boxed{
 P_i
 =
 \frac{\bar j_i\Delta E_i}
 {\sum_j \bar j_j\Delta E_j}
 }.
-\]
+$$
 
 After selecting a bin, the first implementation samples an energy uniformly within that interval:
 
-\[
+$$
 E
 =
 E_i^- + U(E_i^+ - E_i^-),
 \qquad
 U\sim\mathrm{Uniform}(0,1).
-\]
+$$
 
 Therefore, the source is not reduced to 15 monoenergetic lines. It is a **piecewise-constant empirical spectrum over the measured Voyager intervals**.
 
@@ -386,26 +386,26 @@ Therefore, the source is not reduced to 15 monoenergetic lines. It is a **piecew
 
 The original research treated the deep-space GCR environment as approximately isotropic.
 
-For isotropic directional intensity \(j(E)\), particle flux crossing a plane from one hemisphere is:
+For isotropic directional intensity $j(E)$, particle flux crossing a plane from one hemisphere is:
 
-\[
+$$
 F(E)
 =
 \int_{\Omega_+}
 j(E)\cos\theta\,d\Omega.
-\]
+$$
 
 Using
 
-\[
+$$
 d\Omega
 =
 \sin\theta\,d\theta\,d\phi,
-\]
+$$
 
 we obtain
 
-\[
+$$
 F(E)
 =
 j(E)
@@ -413,39 +413,39 @@ j(E)
 \int_0^{\pi/2}
 \cos\theta\sin\theta
 \,d\theta\,d\phi.
-\]
+$$
 
-The angular integral is \(\pi\), giving
+The angular integral is $\pi$, giving
 
-\[
+$$
 \boxed{
 F(E)=\pi j(E)
 }.
-\]
+$$
 
 Across the measured bins,
 
-\[
+$$
 F_{\text{measured}}
 \approx
 \pi
 \sum_i
 \bar j_i\Delta E_i.
-\]
+$$
 
 For the finalized spectrum,
 
-\[
+$$
 \sum_i \bar j_i\Delta E_i
 \approx
 4567.8
 \frac{\text{particles}}
 {\text{m}^2\,\text{s}\,\text{sr}},
-\]
+$$
 
 which gives, under the planar isotropic assumption,
 
-\[
+$$
 \boxed{
 F_{\text{measured}}
 \approx
@@ -453,59 +453,59 @@ F_{\text{measured}}
 \frac{\text{protons}}
 {\text{m}^2\,\text{s}}
 }.
-\]
+$$
 
 This quantity applies only to the **measured energy bands represented by the selected Voyager channels**.
 
 ## 5. Sampling the incidence angle
 
-A common mistake would be to sample \(\theta\) uniformly.
+A common mistake would be to sample $\theta$ uniformly.
 
 For an isotropic field, the distribution of particles that actually **cross a plane** is cosine weighted.
 
 Let
 
-\[
+$$
 \mu=\cos\theta.
-\]
+$$
 
 The normalized distribution is
 
-\[
+$$
 p(\mu)=2\mu,
 \qquad
 0\le\mu\le1.
-\]
+$$
 
 Its cumulative distribution is
 
-\[
+$$
 C(\mu)=\mu^2.
-\]
+$$
 
 Inverse-transform sampling therefore gives
 
-\[
+$$
 \boxed{
 \mu=\sqrt{U}
 },
 \qquad
 U\sim\mathrm{Uniform}(0,1).
-\]
+$$
 
 Both model branches use this plane-crossing logic.
 
 The Geant4 source generator was independently validated with **500,000 draws**:
 
-\[
+$$
 \langle\cos\theta\rangle_{\text{sampled}}
 =
 0.666570.
-\]
+$$
 
-For \(p(\mu)=2\mu\), the theoretical mean is
+For $p(\mu)=2\mu$, the theoretical mean is
 
-\[
+$$
 E[\mu]
 =
 \int_0^1\mu(2\mu)\,d\mu
@@ -513,7 +513,7 @@ E[\mu]
 \frac{2}{3}
 =
 0.666667.
-\]
+$$
 
 The maximum absolute error between requested and sampled energy-bin probability was approximately **0.00124**.
 
@@ -525,43 +525,43 @@ The maximum absolute error between requested and sampled energy-bin probability 
 
 For the intentionally simplified constant-speed model,
 
-\[
+$$
 T=\frac{d}{v}.
-\]
+$$
 
-With the original research distance of approximately \(4.22\) light-years, the project evaluates the three approximate exposure durations listed earlier.
+With the original research distance of approximately $4.22$ light-years, the project evaluates the three approximate exposure durations listed earlier.
 
 ## Fluence
 
-If the planar proton flux is \(F\), cumulative proton fluence after duration \(T\) is
+If the planar proton flux is $F$, cumulative proton fluence after duration $T$ is
 
-\[
+$$
 \boxed{
 \Phi = FT
 }.
-\]
+$$
 
 Fluence has units:
 
-\[
+$$
 [\Phi]
 =
 \frac{\text{particles}}{\text{m}^2}.
-\]
+$$
 
 Under the stationary-environment assumption, exposure therefore scales linearly with mission duration.
 
 Relative to a 50-year mission,
 
-\[
+$$
 \frac{\Phi_{500}}{\Phi_{50}}\approx10
-\]
+$$
 
 and
 
-\[
+$$
 \frac{\Phi_{7000}}{\Phi_{50}}\approx140.
-\]
+$$
 
 These ratios arise before any shielding response is considered.
 
@@ -589,7 +589,7 @@ The silicon slab is an **electronics material proxy**, not a transistor-level mo
 
 For each primary proton:
 
-1. choose a measured Voyager energy bin using \(P_i\),
+1. choose a measured Voyager energy bin using $P_i$,
 2. sample proton energy inside the chosen measured interval,
 3. generate a cosine-weighted incident direction,
 4. transport the proton through aluminum,
@@ -612,35 +612,35 @@ total silicon energy deposition
 
 Let Geant4 return mean energy deposited in silicon per incident proton:
 
-\[
+$$
 \langle E_{\text{dep}}\rangle.
-\]
+$$
 
-For mission fluence \(\Phi\),
+For mission fluence $\Phi$,
 
-\[
+$$
 \frac{E}{A}
 =
 \langle E_{\text{dep}}\rangle\Phi.
-\]
+$$
 
-The areal mass of a silicon slab of density \(\rho_{\text{Si}}\) and thickness \(t_{\text{Si}}\) is
+The areal mass of a silicon slab of density $\rho_{\text{Si}}$ and thickness $t_{\text{Si}}$ is
 
-\[
+$$
 \frac{m}{A}
 =
 \rho_{\text{Si}}t_{\text{Si}}.
-\]
+$$
 
 Since absorbed dose is
 
-\[
+$$
 D=\frac{E}{m},
-\]
+$$
 
 the slab dose becomes
 
-\[
+$$
 \boxed{
 D
 =
@@ -650,13 +650,13 @@ D
 \rho_{\text{Si}}t_{\text{Si}}
 }
 }.
-\]
+$$
 
 The implementation converts MeV to joules so that dose can be reported in gray:
 
-\[
+$$
 1\ \mathrm{Gy}=1\ \mathrm{J/kg}.
-\]
+$$
 
 ![Geant4 source validation](results/geant4/source_sampling_validation.png)
 
@@ -708,9 +708,9 @@ The primary experiment uses representative neutron energies aligned with the Voy
 
 The main material-damage score is silicon damage energy,
 
-\[
+$$
 T_d,
-\]
+$$
 
 reported per source neutron.
 
@@ -720,56 +720,56 @@ Damage energy represents the portion of transferred energy available for atomic-
 
 The original research used the NRT/Kinchin-Pease form
 
-\[
+$$
 \boxed{
 N_d
 =
 \frac{0.8T_d}{2E_d}
 },
-\]
+$$
 
 where
 
-- \(N_d\) is the estimated number of atomic displacements,
-- \(T_d\) is damage energy,
-- \(E_d\) is the displacement-threshold parameter.
+- $N_d$ is the estimated number of atomic displacements,
+- $T_d$ is damage energy,
+- $E_d$ is the displacement-threshold parameter.
 
 The original silicon study used
 
-\[
+$$
 E_d=20.5\ \mathrm{eV}.
-\]
+$$
 
 This parameter is retained explicitly as a modeling assumption.
 
 ## From displacement count to DPA
 
-For silicon density \(\rho_{\text{Si}}\), molar mass \(M_{\text{Si}}\), and Avogadro constant \(N_A\), the atomic number density is
+For silicon density $\rho_{\text{Si}}$, molar mass $M_{\text{Si}}$, and Avogadro constant $N_A$, the atomic number density is
 
-\[
+$$
 n_{\text{Si}}
 =
 \frac{\rho_{\text{Si}}}{M_{\text{Si}}}N_A.
-\]
+$$
 
-For target thickness \(t_{\text{Si}}\), atom areal density is
+For target thickness $t_{\text{Si}}$, atom areal density is
 
-\[
+$$
 N_{\text{A,Si}}
 =
 n_{\text{Si}}t_{\text{Si}}.
-\]
+$$
 
-For neutron fluence \(\Phi_n\),
+For neutron fluence $\Phi_n$,
 
-\[
+$$
 \boxed{
 \mathrm{DPA}
 =
 \frac{N_d\Phi_n}
 {n_{\text{Si}}t_{\text{Si}}}
 }.
-\]
+$$
 
 The analysis pipeline reports the normalized response as:
 
