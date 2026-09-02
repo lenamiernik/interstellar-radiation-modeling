@@ -1,0 +1,23 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Geant4 / CMake
+geant4/build/
+build/
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+
+# Generated production outputs
+results/geant4/shield_*mm.csv
+results/geant4/summary/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

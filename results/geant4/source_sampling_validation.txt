@@ -1,0 +1,7 @@
+Monte Carlo draws: 500,000
+Probability sum: 1.000000000000
+Maximum absolute bin-probability error: 0.001237
+Sampled mean proton energy: 155.504 MeV
+Sampled median proton energy: 164.336 MeV
+Sampled mean cos(theta): 0.666570
+Expected mean cos(theta) for p(mu)=2mu: 0.666667
